@@ -1,0 +1,13 @@
+customer "Oh nooo what ever shall we do" playSong("special song" -v 1), change(upset)
+"Please you have to help me"
+player "is something wrong?" change(shocked)
+"What happened?"
+customer "I dont have a sprite yet oh nooooo" change(cries)
+
+player "... ok" append(next)
+
+player "Maybe deal with that..,"
+
+customer "Lorem ipsum odor amet, consectetuer adipiscing elit. Est felis enim aptent bibendum est natoque. Aptent nibh platea, egestas purus pellentesque penatibus senectus. Habitasse consequat ultrices taciti massa tristique interdum inceptos potenti. Fusce fermentum euismod hac tristique molestie a etiam ligula taciti. Maximus finibus donec metus finibus fusce aptent cursus. Scelerisque venenatis natoque lobortis facilisi justo. Ligula nam porta ad consequat maecenas habitasse lobortis massa. Ut torquent amet hac aenean enim per. Penatibus commodo et vulputate tempus habitasse morbi habitasse per. Vulputate augue montes himenaeos facilisis tincidunt risus. Arcu lacus class ex platea efficitur augue hac. Consectetur nunc egestas erat ex nisl tortor viverra nunc metus. Elit gravida condimentum suspendisse pulvinar at cubilia himenaeos et velit. Nullam vivamus tortor neque neque suspendisse sociosqu. Porta placerat est faucibus ridiculus rhoncus finibus sollicitudin, tortor quis."
+
+player "BITCH ARE YOU HIGH???"
