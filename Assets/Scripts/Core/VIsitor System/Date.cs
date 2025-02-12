@@ -6,8 +6,8 @@ using UnityEngine;
 public class Date : IComparable<Date>
 {
     public int month;
-    public int year;
     public int day;
+    public int year;
 
     public int CompareTo(Date other)
     {

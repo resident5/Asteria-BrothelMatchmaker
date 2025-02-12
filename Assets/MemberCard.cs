@@ -1,18 +1,34 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using TMPro;
+using UnityEngine.UI;
 
 public class MemberCard : MonoBehaviour
 {
-    // Start is called before the first frame update
-    void Start()
+    [SerializeField]
+    Image image;
+
+    [SerializeField]
+    TMP_Text nameText, IDText, dateText;
+
+    public void SetImage(Sprite sprite)
     {
-        
+        image.sprite = sprite;
     }
 
-    // Update is called once per frame
-    void Update()
+    public void SetNameText(string name)
     {
-        
+        nameText.text = name;
+    }
+
+    public void SetIDText(string id)
+    {
+        IDText.text = id;
+    }
+
+    public void SetDateText(Date date)
+    {
+        dateText.text = date.ToString();
     }
 }

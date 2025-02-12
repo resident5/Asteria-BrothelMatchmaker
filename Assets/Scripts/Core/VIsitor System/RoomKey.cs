@@ -1,8 +1,4 @@
-using System.Collections;
-using System.Collections.Generic;
-using Unity.VisualScripting;
 using UnityEngine;
-using UnityEngine.EventSystems;
 
 public class RoomKey : DragSource
 {
@@ -21,6 +17,7 @@ public class RoomKey : DragSource
 
         GameManager.Instance.SendVisitorToRoom(keyValue);
 
+        StartCoroutine(GameManager.Instance.VisitorExiting());
         //GameManager.Instance.SetNextVisitor();
     }
 

@@ -3,6 +3,7 @@ using UnityEngine;
 [System.Serializable]
 public class Room
 {
+    public string roomName;
     public Visitor visitor1 = null;
     public Visitor visitor2 = null;
 
@@ -22,20 +23,16 @@ public class Room
     {
         //Set Visitor Parameters
         //Allow player to check room info somewhere on screen
-        if (visitor1 == null)
+        if (string.IsNullOrWhiteSpace(visitor1.Name))
         {
             visitor1 = visitor;
             Debug.Log($"{visitor.firstName} {visitor.lastName} has been sent to {roomKey.ToString()}");
-            return;
         }
-        else if (visitor2 == null)
+        else if (string.IsNullOrWhiteSpace(visitor2.Name))
         {
             visitor2 = visitor;
             Debug.Log($"{visitor.firstName} {visitor.lastName} has been sent to {roomKey.ToString()}");
-            return;
         }
-
-        Debug.LogError("Room is full... This is an error");
     }
 
     /// <summary>

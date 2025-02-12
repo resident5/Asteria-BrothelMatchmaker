@@ -7,6 +7,8 @@ public class HUDController : MonoBehaviour
 {
     public IDCard IDCard;
 
+    public MemberCard memberCard;
+
     public Image visitorImage;
 
     private void Start()
@@ -14,13 +16,17 @@ public class HUDController : MonoBehaviour
         //IDCard = GetComponentInChildren<IDCard>();
     }
 
-    public void SetupVisitor(VisitorSO visitor)
+    public void SetupVisitor(Visitor visitor)
     {
         visitorImage.sprite = visitor.icon;
         IDCard.SetPhoto(visitor.icon);
         IDCard.SetIDInfo($"{visitor.firstName} {visitor.lastName}",
             visitor.age.ToString(), "Champion", visitor.profession);
 
+        memberCard.SetImage(visitor.icon);
+        memberCard.SetNameText(visitor.Name);
+        memberCard.SetDateText(visitor.expirationDate);
+        memberCard.SetIDText(visitor.id);
         //Visitor dumps all his ID and Membership card on table
 
         //Player asks visit what his preferences are

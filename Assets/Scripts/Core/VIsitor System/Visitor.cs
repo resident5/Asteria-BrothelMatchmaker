@@ -4,9 +4,11 @@ using UnityEngine;
 [System.Serializable]
 public class Visitor
 {
-    public string id;
+    public string Name => $"{firstName} {lastName}";
     public string firstName;
     public string lastName;
+    public string id;
+
     public int age;
     public string profession;
 

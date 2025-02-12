@@ -12,11 +12,13 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 90c0edaf22981a144b5a0c7dec730338, type: 3}
   m_Name: Warrior
   m_EditorClassIdentifier: 
-  id: 1
+  id: 445211209021
   firstName: Warrior
   lastName: Warriorsong
   age: 25
   profession: Warrior
+  height: 0
+  weight: 0
   expirationDate:
     month: 5
     year: 6
@@ -24,3 +26,5 @@ MonoBehaviour:
   stats: 020000000000000005000000060000000d00000009000000
   myPreferredTraits: 040000000d000000070000000900000013000000
   icon: {fileID: 21300000, guid: a384a8b87133dcf44979b008a91052fb, type: 3}
+  baseScore: 0
+  rareScoreMultiplier: 0
