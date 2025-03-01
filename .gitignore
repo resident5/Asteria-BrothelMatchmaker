@@ -74,6 +74,12 @@ crashlytics-build.properties
 /[Aa]ssets/[Ss]treamingAssets/aa.meta
 /[Aa]ssets/[Ss]treamingAssets/aa/*
 
+/Assets/Profiles/Addressable/link.*
+/Assets/Profiles/Addressable/Windows*
+/Assets/Unity.VisualScripting.Generated*
+
+/Packages/com.elringus.naninovel/
+
 # Auto-generated Unity assets of transient nature.
 /Assets/NaninovelData/Transient*
 # Transient artifacts of the external tools.
