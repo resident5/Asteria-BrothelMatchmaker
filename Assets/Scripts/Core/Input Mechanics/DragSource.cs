@@ -1,5 +1,6 @@
 using System.Collections;
 using System.Collections.Generic;
+using System.Text.RegularExpressions;
 using UnityEngine;
 using UnityEngine.EventSystems;
 using UnityEngine.UI;
@@ -17,20 +18,21 @@ public class DragSource : MonoBehaviour, IBeginDragHandler, IDragHandler, IEndDr
     public Transform initalParent;
 
     public DropSource source;
+    public const string EXPRESSION = "\\d";
 
-    private void Start()
+    protected void Start()
     {
         image = GetComponent<Image>();
         rectTransform = GetComponent<RectTransform>();
         canvas = GetComponent<Canvas>();
+        initalParent = transform.parent;
+        //Debug.Log($"Sibling index is {transform.GetSiblingIndex()} on {transform.name}");
     }
 
     public void OnBeginDrag(PointerEventData eventData)
     {
         startPos = eventData.pressPosition;
-        initalParent = transform.parent;
-        transform.SetParent(initalParent.parent);
-        //Debug.Log($"Transform root = {transform.parent.name}");
+        transform.SetParent(initalParent.parent.parent);
         transform.SetAsLastSibling();
         image.raycastTarget = false;
     }
@@ -42,12 +44,26 @@ public class DragSource : MonoBehaviour, IBeginDragHandler, IDragHandler, IEndDr
 
     public void OnEndDrag(PointerEventData eventData)
     {
+        Debug.Log($"I dragged on top of... {eventData.pointerCurrentRaycast.gameObject.name}");
+
         transform.position = startPos;
         transform.SetParent(initalParent);
+        Sort();
         image.raycastTarget = true;
     }
 
     public virtual void Action() { }
+
+    public void Sort()
+    {
+        Regex regex = new Regex(EXPRESSION);
+        Match match = regex.Match(transform.name);
+        if(match.Success)
+        {
+            int.TryParse(match.Value, out int value);
+            transform.SetSiblingIndex(value - 1);
+        }
+    }
 
     private void SetDragPosition(PointerEventData eventData)
     {

@@ -3,79 +3,102 @@ using System.Linq;
 using System.Text.RegularExpressions;
 using UnityEngine;
 
-
-public class SpeakerData
+namespace DIALOGUE
 {
-    public string name, castName;
-    public Vector2 castPosition;
-
-    public string displayName => (castName != string.Empty ? castName : name);
-
-    public List<(int layer, string expression)> CastExpressions { get; set; }
-
-    private const string NAMECAST_ID = " as ";
-    private const string POSITIONCAST_ID = " at ";
-    private const string EXPRESSIONCAST_ID = " [";
-    private const char AXISDELIMITER_ID = ':';
-    private const char EXPRESSIONLAYER_JOINER = ',';
-    private const char EXPRESSIONLAYER_DELIMITER = ':';
-
-    public SpeakerData(string rawSpeaker)
+    public class SpeakerData
     {
-        //Find as, at and [ and split them up in an array
-        string pattern = @$"{NAMECAST_ID}|{POSITIONCAST_ID}|{EXPRESSIONCAST_ID.Insert(EXPRESSIONCAST_ID.Length - 1, @"\")}";
-        MatchCollection matches = Regex.Matches(rawSpeaker, pattern);
+        public string name, castName;
+        public Vector2 castPosition;
 
-        castName = "";
-        castPosition = Vector2.zero;
-        CastExpressions = new List<(int layer, string expressions)>();
+        public string displayName => isCastingName ? castName : name;
 
-        if (matches.Count == 0)
+        public List<(int layer, string expression)> CastExpressions { get; set; }
+
+        public bool isCastingName => castName != string.Empty;
+        public bool isCastingPosition = false;
+        public bool isCastingExpression => CastExpressions.Count > 0;
+
+        public bool makeCharacterEnter = false;
+
+        private const string NAMECAST_ID = " as ";
+        private const string POSITIONCAST_ID = " at ";
+        private const string EXPRESSIONCAST_ID = " [";
+        private const string ENTER_KEYWORD = "enter ";
+        private const char AXISDELIMITER_ID = ':';
+        private const char EXPRESSIONLAYER_JOINER = ',';
+        private const char EXPRESSIONLAYER_DELIMITER = ':';
+
+        private string ProcessKeywords(string rawSpeaker)
         {
-            name = rawSpeaker;
-            return;
+            if(rawSpeaker.StartsWith(ENTER_KEYWORD))
+            {
+                rawSpeaker = rawSpeaker.Substring(ENTER_KEYWORD.Length);
+                makeCharacterEnter = true;
+            }
+
+            return rawSpeaker;
         }
 
-        int index = matches[0].Index;
-        name = rawSpeaker.Substring(0, index + 1);
-
-        for (int i = 0; i < matches.Count; i++)
+        public SpeakerData(string rawSpeaker)
         {
-            Match match = matches[i];
-            int startIndex = 0, endIndex = 0;
+            rawSpeaker = ProcessKeywords(rawSpeaker);
 
-            if (match.Value == NAMECAST_ID)
+            //Find as, at and [ and split them up in an array
+            string pattern = @$"{NAMECAST_ID}|{POSITIONCAST_ID}|{EXPRESSIONCAST_ID.Insert(EXPRESSIONCAST_ID.Length - 1, @"\")}";
+            MatchCollection matches = Regex.Matches(rawSpeaker, pattern);
+
+            castName = "";
+            castPosition = Vector2.zero;
+            CastExpressions = new List<(int layer, string expressions)>();
+
+            if (matches.Count == 0)
             {
-                startIndex = match.Index + NAMECAST_ID.Length;
-                endIndex = (i < matches.Count - 1) ? matches[i + 1].Index : rawSpeaker.Length;
-                castName = rawSpeaker.Substring(startIndex, endIndex - startIndex);
+                name = rawSpeaker;
+                return;
             }
-            else if (match.Value == POSITIONCAST_ID)
+
+            int index = matches[0].Index;
+            name = rawSpeaker.Substring(0, index + 1);
+
+            for (int i = 0; i < matches.Count; i++)
             {
-                startIndex = match.Index + POSITIONCAST_ID.Length;
-                endIndex = (i < matches.Count - 1) ? matches[i + 1].Index : rawSpeaker.Length;
-                string castPos = rawSpeaker.Substring(startIndex, endIndex - startIndex);
+                Match match = matches[i];
+                int startIndex = 0, endIndex = 0;
 
-                string[] axis = castPos.Split(AXISDELIMITER_ID, System.StringSplitOptions.RemoveEmptyEntries);
+                if (match.Value == NAMECAST_ID)
+                {
+                    startIndex = match.Index + NAMECAST_ID.Length;
+                    endIndex = i < matches.Count - 1 ? matches[i + 1].Index : rawSpeaker.Length;
+                    castName = rawSpeaker.Substring(startIndex, endIndex - startIndex);
+                }
+                else if (match.Value == POSITIONCAST_ID)
+                {
+                    isCastingPosition = true;
+                    startIndex = match.Index + POSITIONCAST_ID.Length;
+                    endIndex = i < matches.Count - 1 ? matches[i + 1].Index : rawSpeaker.Length;
+                    string castPos = rawSpeaker.Substring(startIndex, endIndex - startIndex);
 
-                float.TryParse(axis[0], out castPosition.x);
+                    string[] axis = castPos.Split(AXISDELIMITER_ID, System.StringSplitOptions.RemoveEmptyEntries);
 
-                if (axis.Length > 1)
-                    float.TryParse(axis[1], out castPosition.y);
-            }
-            else if (match.Value == EXPRESSIONCAST_ID)
-            {
-                startIndex = match.Index + EXPRESSIONCAST_ID.Length;
-                endIndex = (i < matches.Count - 1) ? matches[i + 1].Index : rawSpeaker.Length;
-                string castExp = rawSpeaker.Substring(startIndex, endIndex - (startIndex + 1));
+                    float.TryParse(axis[0], out castPosition.x);
 
-                //Split the cast expression into an array and return both integers
-                CastExpressions = castExp.Split(EXPRESSIONLAYER_JOINER)
-                    .Select(x =>
-                    {
-                        var parts = x.Trim().Split(EXPRESSIONLAYER_DELIMITER);
-                        return (int.Parse(parts[0]), parts[1]);
-                    }).ToList();
+                    if (axis.Length > 1)
+                        float.TryParse(axis[1], out castPosition.y);
+                }
+                else if (match.Value == EXPRESSIONCAST_ID)
+                {
+                    startIndex = match.Index + EXPRESSIONCAST_ID.Length;
+                    endIndex = i < matches.Count - 1 ? matches[i + 1].Index : rawSpeaker.Length;
+                    string castExp = rawSpeaker.Substring(startIndex, endIndex - (startIndex + 1));
+
+                    //Split the cast expression into an array and return both integers
+                    CastExpressions = castExp.Split(EXPRESSIONLAYER_JOINER)
+                        .Select(x =>
+                        {
+                            var parts = x.Trim().Split(EXPRESSIONLAYER_DELIMITER);
+                            return (int.Parse(parts[0]), parts[1]);
+                        }).ToList();
+                }
             }
         }
     }

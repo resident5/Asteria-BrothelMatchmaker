@@ -4,20 +4,37 @@ public class RoomKey : DragSource
 {
     //The room this key corresponds to
     public KeyEnum keyValue;
+    public int MAX_USAGES = 2;
+    public int numOfUsages = 2;
 
     //Get the GameManager
     //Set the current visitor to the room that corresponds to this key.
     //Move on to the next visitor
 
-    //Testing only
+    private void Start()
+    {
+        base.Start();
+        numOfUsages = MAX_USAGES;
+    }
 
     public override void Action()
     {
         Debug.Log($"{keyValue.ToString()}");
+        numOfUsages--;
+
+        if (numOfUsages <= 0)
+        {
+            Debug.Log("Instantiate a new gameObject");
+            GameObject obj = Instantiate(new GameObject(), initalParent);
+            obj.transform.SetSiblingIndex(transform.GetSiblingIndex());
+            transform.SetParent(initalParent);
+
+            gameObject.SetActive(false);
+        }
 
         GameManager.Instance.SendVisitorToRoom(keyValue);
 
-        StartCoroutine(GameManager.Instance.VisitorExiting());
+        GameManager.Instance.SetNextVisitor();
         //GameManager.Instance.SetNextVisitor();
     }
 

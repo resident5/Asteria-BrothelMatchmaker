@@ -4,31 +4,34 @@ using UnityEngine;
 public class Room
 {
     public string roomName;
-    public Visitor visitor1 = null;
-    public Visitor visitor2 = null;
+    public Visitor visitor1;
+    public Visitor visitor2;
 
     public int matchScore;
 
     public KeyEnum roomKey;
+    public bool IsOccupied => visitor1 != null || visitor2 != null;
 
     [SerializeField]
-    private int baseScore = 100;
+    public int baseScore = 100;
 
     public Room(KeyEnum key)
     {
         roomKey = key;
+        visitor1 = null;
+        visitor2 = null;
     }
 
     public void SetVisitor(Visitor visitor)
     {
         //Set Visitor Parameters
         //Allow player to check room info somewhere on screen
-        if (string.IsNullOrWhiteSpace(visitor1.Name))
+        if (visitor1 == null)
         {
             visitor1 = visitor;
             Debug.Log($"{visitor.firstName} {visitor.lastName} has been sent to {roomKey.ToString()}");
         }
-        else if (string.IsNullOrWhiteSpace(visitor2.Name))
+        else if (visitor2 == null)
         {
             visitor2 = visitor;
             Debug.Log($"{visitor.firstName} {visitor.lastName} has been sent to {roomKey.ToString()}");
@@ -45,26 +48,46 @@ public class Room
         //If they are final score is -100 and trigger a scene
         int finalScore = 0;
 
+        if(visitor1 != null && !visitor1.isMember)
+        {
+            return finalScore -= 100;
+            
+        }
+        if (visitor2 != null && !visitor2.isMember)
+        {
+            return finalScore -= 100;
+        }
+
         //Compare Visitor1 and Visitor2's stats with the others preferred stats
-        finalScore += visitor1.CompareStatTraits(visitor2);
-        finalScore += visitor2.CompareStatTraits(visitor1);
+        if (visitor2 != null)
+        {
+            finalScore += 200;
+            finalScore += visitor1.CompareStatTraits(visitor2);
+            finalScore += visitor2.CompareStatTraits(visitor1);
+
+            foreach (var trait in visitor2.stats)
+            {
+                if (visitor1.myPreferredTraits.Contains(trait))
+                {
+                    finalScore += baseScore;
+                }
+            }
+
+            foreach (var trait in visitor1.stats)
+            {
+                if (visitor1.myPreferredTraits.Contains(trait))
+                {
+                    finalScore += baseScore;
+                }
+            }
+        }
+        else
+        {
+            finalScore += 100;
+        }
 
         //Compare Visitor1 and Visitor2's stats with the others
-        foreach (var trait in visitor2.stats)
-        {
-            if (visitor1.myPreferredTraits.Contains(trait))
-            {
-                finalScore += baseScore;
-            }
-        }
 
-        foreach (var trait in visitor1.stats)
-        {
-            if (visitor1.myPreferredTraits.Contains(trait))
-            {
-                finalScore += baseScore;
-            }
-        }
 
         return finalScore;
     }

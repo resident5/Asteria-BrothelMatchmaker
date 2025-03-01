@@ -13,18 +13,19 @@ MonoBehaviour:
   m_Name: Mage
   m_EditorClassIdentifier: 
   id: 250260501223
-  firstName: Mage
-  lastName: MageingMage
-  age: 20
+  firstName: Fisk
+  lastName: Twistscale
+  age: 30
   profession: Magician
   height: 0
   weight: 0
   expirationDate:
     month: 5
-    year: 2520
     day: 6
-  stats: 030000000400000001000000070000000d00000009000000
-  myPreferredTraits: 050000000d000000
-  icon: {fileID: 21300000, guid: 909ea7119301c3143954d8b5cf95733d, type: 3}
-  baseScore: 0
-  rareScoreMultiplier: 0
+    year: 2520
+  stats: 0300000004000000070000000d00000009000000
+  myPreferredTraits: 050000000d00000002000000
+  idIcon: {fileID: 21300000, guid: f5e56c820c911794695da07d0244dda3, type: 3}
+  spriteImage: {fileID: 21300000, guid: d982ea1e124958948935a381e58ab0f0, type: 3}
+  baseScore: 500
+  rareScoreMultiplier: 1

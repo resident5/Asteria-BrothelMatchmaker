@@ -1,0 +1,21 @@
+DO IN ORDER:
+
+- Dialogue Bubble System (When the new Visitor arrives they must have dialogue options that show up)
+	- Option for asking about id
+	- Option for asking about member id
+	- Option for chating regularly
+	- Option for their appearance
+	- Option for asking for their type
+	- Option based on variables (past convo, past dialogue, members list visitors, about them)
+	- Option for dismissing them with hypnosis
+	- Option for hypnotically suggesting stuff or changing their type??
+
+- Room List (When assigning a new visitor they should be assigned to the room list to keep track of who was sent where)
+	- Players should check whos currently in the room
+	- Players should be able to check the person in the room's stats and preferences
+
+- Sex scene implementation
+	- After ending the game. If the people in the room are compatible it should unlock a sex scene that is visible... somewhere
+	- Visible in gallery? Or visible post game?
+
+- Add more Visitors

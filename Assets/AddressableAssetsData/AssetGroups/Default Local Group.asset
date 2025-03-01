@@ -1,0 +1,35 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: bbb281ee3bf0b054c82ac2347e9e782c, type: 3}
+  m_Name: Default Local Group
+  m_EditorClassIdentifier: 
+  m_GroupName: Default Local Group
+  m_Data:
+    m_SerializedData: []
+  m_GUID: f4bab90ee6f02284f9616d9b943a0bb0
+  m_SerializeEntries:
+  - m_GUID: 759fd25cb94610346985dd7ea0541ec9
+    m_Address: Assets/Scenario/Intro.nani
+    m_ReadOnly: 0
+    m_SerializedLabels: []
+    FlaggedDuringContentUpdateRestriction: 0
+  - m_GUID: 75b633c3d6fccd54a8d88a38b0479e1a
+    m_Address: Assets/Scenario/Visitor_Questioning.nani
+    m_ReadOnly: 0
+    m_SerializedLabels: []
+    FlaggedDuringContentUpdateRestriction: 0
+  m_ReadOnly: 0
+  m_Settings: {fileID: 11400000, guid: 5a04c9ec299bc684a860ac1d36ce6e51, type: 2}
+  m_SchemaSet:
+    m_Schemas:
+    - {fileID: 11400000, guid: e2cf8cc940d77394cb6f03240ec429d7, type: 2}
+    - {fileID: 11400000, guid: 9d6a24921d53ed24e9e7bd84c220c257, type: 2}

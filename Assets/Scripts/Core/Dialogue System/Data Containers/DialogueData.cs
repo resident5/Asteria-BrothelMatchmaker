@@ -8,8 +8,6 @@ public class DialogueData
     public List<DIALOGUE_SEGMENT> segments;
     private const string segmentIdentifierPatern = @"\{[ca]\}|\{w[ca]\s\d*\.?\d*\}";
 
-    public bool hasDialogue => segments.Count > 0;
-
     public DialogueData(string rawDialogue)
     {
         segments = RipSegments(rawDialogue);
@@ -62,6 +60,11 @@ public class DialogueData
         return tempSegments;
     }
 
+    /// <summary>
+    /// Struct for handling dialogue segments
+    /// Signals A appeands text while WA appends text after X time passes
+    /// Signals C clears the text box after user input while WC does after a delay
+    /// </summary>
     public struct DIALOGUE_SEGMENT
     {
         public string dialogue;

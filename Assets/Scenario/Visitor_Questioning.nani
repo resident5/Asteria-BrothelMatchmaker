@@ -1,0 +1,25 @@
+
+# Questioning
+@choice "So what kind of person are you interested in?" goto:.interests
+@choice "Your ID looks wrong" goto:.id
+@choice "Your member ID looks wrong" goto:.memberid
+@choice "Remove them"
+@adventure !reset
+@stop
+
+# id
+My ID should be fine.
+@adventure !reset
+@stop
+# memberid
+Huh? My member ID should be fine.
+
+@adventure !reset
+@stop
+
+# interests
+I'm interested in {visitor_strength_pref}. Also, {visitor_mind_pref} but also {visitor_attack_pref}.
+He should also be a {visitor_job_pref}.
+
+@adventure !reset
+@stop

@@ -1,7 +1,0 @@
-bacon "I will destroy you!"
-bacon "COME HERE NOW{c}Before I remind you what{a}a god does do you"
-
-demon "No I-{wa 1} I'm scared sir{wa 2} Please"
-bacon "Begone {c}Weakling"
-
-speaker as ??? at 1:0 [0:Angle, 1: Happy] "segment{c}segments" 

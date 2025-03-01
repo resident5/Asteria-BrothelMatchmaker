@@ -1,4 +1,6 @@
+using DIALOGUE;
 using System.Collections.Generic;
+using Unity.VisualScripting;
 using UnityEngine;
 
 [System.Serializable]
@@ -19,18 +21,24 @@ public class Visitor
     public List<Trait> stats;
     public List<Trait> myPreferredTraits;
 
-    public Sprite icon;
+    public Sprite idIcon;
+    public Sprite spriteImage;
 
     public bool isMember = true;
 
     private int baseScore;
-    private int rareScoreMultiplier;
+    private int rareScoreMultiplier = 1;
 
-    private int FinalScoreMultiplier => baseScore * rareScoreMultiplier;
+    public int FinalScoreMultiplier => baseScore * rareScoreMultiplier;
+
+    public ImposterType imposterType = ImposterType.NONE;
 
     //Changeable Values: These values are to be changed when generating a visitor...
     //These values are used to determine whether the Visitor is a member or an imposter
     public string memberID;
+    public string displayName => Name;
+
+    public DialogueManager dialogueManager => DialogueManager.Instance;
 
     public Visitor(VisitorSO visitorSO)
     {
@@ -42,21 +50,9 @@ public class Visitor
         expirationDate = visitorSO.expirationDate;
         stats = visitorSO.stats;
         myPreferredTraits = visitorSO.myPreferredTraits;
-        icon = visitorSO.icon;
+        idIcon = visitorSO.idIcon;
+        spriteImage = visitorSO.spriteImage;
     }
-
-    //public string GetHeightInCM()
-    //{
-    //    return $"{mytraits.height}cm";
-    //}
-
-    //public string GetHeightInFeet()
-    //{
-    //    float totalInches = mytraits.height * .3937f;
-    //    int foot = (int)totalInches / 12;
-    //    float inches = totalInches % 12;
-    //    return $"{foot}ft {inches}in";
-    //}
 
     public int CompareStatTraits(Visitor other)
     {
@@ -92,6 +88,14 @@ public class Visitor
 
         return statScore;
     }
+
+    public Coroutine Say(string dialogue) => Say(new List<string> { dialogue });
+
+    public Coroutine Say(List<string> lines)
+    {
+        dialogueManager.ShowSpeakerName(displayName);
+        return dialogueManager.Say(lines);
+    }
 }
 
 public enum Trait
@@ -108,5 +112,14 @@ public enum Trait
     //Preferred Traits
     PREFERYOUNGER, PREFEROLDER, PREFERSAMEAGE,
     PREFERTALLER, PREFERSHORTER, PREFERSAMEHEIGHT,
+}
+
+public enum ImposterType
+{
+    NONE,
+    FAKE_NAME,
+    FAKE_ID,
+    FAKE_ICON,
+    FAKE_EXPIRATION_DATE
 }
 

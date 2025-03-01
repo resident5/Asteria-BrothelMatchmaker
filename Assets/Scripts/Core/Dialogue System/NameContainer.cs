@@ -1,5 +1,4 @@
 ﻿using System;
-using System.Collections;
 using TMPro;
 using UnityEngine;
 
@@ -29,4 +28,9 @@ public class NameContainer
     {
         root.SetActive(false);
     }
+
+    public void SetNameColor(Color color) => nameText.color = color;
+
+    public void SetNameFont(TMP_FontAsset font) => nameText.font = font;
+
 }

@@ -1,0 +1,31 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 90c0edaf22981a144b5a0c7dec730338, type: 3}
+  m_Name: Hunter
+  m_EditorClassIdentifier: 
+  id: 329409238123
+  firstName: Drake
+  lastName: Hansen
+  age: 25
+  profession: Warrior
+  height: 0
+  weight: 0
+  expirationDate:
+    month: 2
+    day: 13
+    year: 2520
+  stats: 020000000100000005000000060000000d00000009000000
+  myPreferredTraits: 04000000020000000d000000070000000900000013000000
+  idIcon: {fileID: 21300000, guid: 66751ed21de2ab046b5bbc4fc03b73ee, type: 3}
+  spriteImage: {fileID: 21300000, guid: 1a381d6af700cbd47ac95788d7448704, type: 3}
+  baseScore: 1000
+  rareScoreMultiplier: 5
